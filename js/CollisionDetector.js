@@ -35,14 +35,14 @@ class CollisionDetector {
             return false;
         }
 
-        // Get attack box from attacker
-        const attackBox = attacker.getAttackBox();
+        // Get attack box from attacker (pass defender position for correct facing direction)
+        const attackBox = attacker.getAttackBox(defender.position.x);
         if (!attackBox) {
             return false;
         }
 
-        // Get hit box from defender
-        const hitBox = defender.getHitBox();
+        // Get hit box from defender (pass attacker position for correct facing direction)
+        const hitBox = defender.getHitBox(attacker.position.x);
         if (!hitBox) {
             return false;
         }

@@ -144,39 +144,59 @@ class Character {
         }
     }
 
-    getHitBox() {
+    getHitBox(opponentX = null) {
         if (!this.currentState.hitBox) {
             return null;
         }
         
         const hitBox = this.currentState.hitBox;
         
+        // Determine facing direction based on opponent position
+        let isFacingRight;
+        if (opponentX !== null) {
+            isFacingRight = this.position.x < opponentX;
+        } else {
+            isFacingRight = this.position.x < this.canvasWidth / 2;
+        }
+        
         // Return absolute coordinates based on character position and facing direction
+        // When facing right (left_url), use hitBox as-is from left edge
+        // When facing left (right_url), mirror hitBox from right edge
         return {
-            x: this.position.x + (this.isLeftSide ? hitBox.x : -hitBox.x - hitBox.w),
+            x: this.position.x + (isFacingRight ? hitBox.x : -hitBox.x - hitBox.w),
             y: this.position.y + hitBox.y,
             w: hitBox.w,
             h: hitBox.h
         };
     }
 
-    getAttackBox() {
+    getAttackBox(opponentX = null) {
         if (!this.currentState.attackBox) {
             return null;
         }
         
         const attackBox = this.currentState.attackBox;
         
+        // Determine facing direction based on opponent position
+        let isFacingRight;
+        if (opponentX !== null) {
+            isFacingRight = this.position.x < opponentX;
+        } else {
+            isFacingRight = this.position.x < this.canvasWidth / 2;
+        }
+        
         // Return absolute coordinates based on character position and facing direction
+        // When facing right (left_url), use attackBox as-is from left edge
+        // When facing left (right_url), mirror attackBox from right edge
         return {
-            x: this.position.x + (this.isLeftSide ? attackBox.x : -attackBox.x - attackBox.w),
+            x: this.position.x + (isFacingRight ? attackBox.x : -attackBox.x - attackBox.w),
             y: this.position.y + attackBox.y,
             w: attackBox.w,
             h: attackBox.h
         };
     }
 
-    getCurrentImage() {
+    getCurrentImage(opponentX = null) {
         const frameIndex = this.currentState.getCurrentFrame(this.animationTimer);
         
         if (frameIndex === null || frameIndex >= this.currentState.images.length) {
@@ -185,8 +205,19 @@ class Character {
         
         const frame = this.currentState.images[frameIndex];
         
-        // Return the appropriate image URL based on character facing direction
-        return this.isLeftSide ? frame.left_url : frame.right_url;
+        // Determine facing direction based on opponent position if available
+        // Otherwise fall back to canvas center
+        let isOnLeftSide;
+        if (opponentX !== null) {
+            // Face towards opponent: if opponent is to the right, we're on the left
+            isOnLeftSide = this.position.x < opponentX;
+        } else {
+            // Fall back to canvas center
+            isOnLeftSide = this.position.x < this.canvasWidth / 2;
+        }
+        
+        // Return the appropriate image URL based on facing direction
+        return isOnLeftSide ? frame.left_url : frame.right_url;
     }
 
     revive() {

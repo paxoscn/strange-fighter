@@ -97,8 +97,8 @@
         "keys": [],
         "imgs": [
           {
-            "left_url": "./assets/characters/tom/normal-right.png",
-            "right_url": "./assets/characters/tom/normal-left.png",
+            "left_url": "./assets/characters/tom/normal-left.png",
+            "right_url": "./assets/characters/tom/normal-right.png",
             "duration": 300
           }
         ],
@@ -118,8 +118,8 @@
         ],
         "imgs": [
           {
-            "left_url": "./assets/characters/tom/attacking-right.png",
-            "right_url": "./assets/characters/tom/attacking-left.png",
+            "left_url": "./assets/characters/tom/attacking-left.png",
+            "right_url": "./assets/characters/tom/attacking-right.png",
             "duration": 300
           }
         ],
@@ -143,8 +143,8 @@
         "keys": [],
         "imgs": [
           {
-            "left_url": "./assets/characters/tom/attacked-right.png",
-            "right_url": "./assets/characters/tom/attacked-left.png",
+            "left_url": "./assets/characters/tom/attacked-left.png",
+            "right_url": "./assets/characters/tom/attacked-right.png",
             "duration": 200
           }
         ],
@@ -162,8 +162,8 @@
         "keys": [],
         "imgs": [
           {
-            "left_url": "./assets/characters/tom/knocked-right.png",
-            "right_url": "./assets/characters/tom/knocked-left.png",
+            "left_url": "./assets/characters/tom/knocked-left.png",
+            "right_url": "./assets/characters/tom/knocked-right.png",
             "duration": 9999
           }
         ],
