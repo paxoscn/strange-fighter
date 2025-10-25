@@ -1,0 +1,182 @@
+{
+  "tom": {
+    "url": "./assets/characters/tom/avatar.png",
+    "point": 100,
+    "status": [
+      {
+        "keys": [],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/tom/normal-left.png",
+            "right_url": "./assets/characters/tom/normal-right.png",
+            "duration": 300
+          }
+        ],
+        "block": {
+          "x": 0,
+          "y": 0,
+          "w": 150,
+          "h": 180
+        },
+        "type": "normal",
+        "power": 0,
+        "duration": 0
+      },
+      {
+        "keys": [
+          "A"
+        ],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/tom/attacking-left.png",
+            "right_url": "./assets/characters/tom/attacking-right.png",
+            "duration": 300
+          }
+        ],
+        "block": {
+          "x": 0,
+          "y": 0,
+          "w": 150,
+          "h": 180
+        },
+        "type": "attacking",
+        "power": 15,
+        "attack": {
+          "x": 0,
+          "y": 0,
+          "w": 150,
+          "h": 180
+        },
+        "duration": 300
+      },
+      {
+        "keys": [],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/tom/attacked-left.png",
+            "right_url": "./assets/characters/tom/attacked-right.png",
+            "duration": 200
+          }
+        ],
+        "block": {
+          "x": 0,
+          "y": 0,
+          "w": 150,
+          "h": 180
+        },
+        "type": "attacked",
+        "power": 0,
+        "duration": 200
+      },
+      {
+        "keys": [],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/tom/knocked-left.png",
+            "right_url": "./assets/characters/tom/knocked-right.png",
+            "duration": 9999
+          }
+        ],
+        "block": {
+          "x": 0,
+          "y": 0,
+          "w": 150,
+          "h": 180
+        },
+        "type": "knocked",
+        "power": 0,
+        "duration": 0
+      }
+    ]
+  },
+  "tom1": {
+    "url": "./assets/characters/tom/avatar.png",
+    "point": 100,
+    "status": [
+      {
+        "keys": [],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/tom/normal-right.png",
+            "right_url": "./assets/characters/tom/normal-left.png",
+            "duration": 300
+          }
+        ],
+        "block": {
+          "x": 0,
+          "y": 0,
+          "w": 150,
+          "h": 180
+        },
+        "type": "normal",
+        "power": 0,
+        "duration": 0
+      },
+      {
+        "keys": [
+          "A"
+        ],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/tom/attacking-right.png",
+            "right_url": "./assets/characters/tom/attacking-left.png",
+            "duration": 300
+          }
+        ],
+        "block": {
+          "x": 0,
+          "y": 0,
+          "w": 150,
+          "h": 180
+        },
+        "type": "attacking",
+        "power": 15,
+        "attack": {
+          "x": 0,
+          "y": 0,
+          "w": 150,
+          "h": 180
+        },
+        "duration": 300
+      },
+      {
+        "keys": [],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/tom/attacked-right.png",
+            "right_url": "./assets/characters/tom/attacked-left.png",
+            "duration": 200
+          }
+        ],
+        "block": {
+          "x": 0,
+          "y": 0,
+          "w": 150,
+          "h": 180
+        },
+        "type": "attacked",
+        "power": 0,
+        "duration": 200
+      },
+      {
+        "keys": [],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/tom/knocked-right.png",
+            "right_url": "./assets/characters/tom/knocked-left.png",
+            "duration": 9999
+          }
+        ],
+        "block": {
+          "x": 0,
+          "y": 0,
+          "w": 150,
+          "h": 180
+        },
+        "type": "knocked",
+        "power": 0,
+        "duration": 0
+      }
+    ]
+  }
+}

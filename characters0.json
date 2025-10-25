@@ -1,0 +1,514 @@
+{
+  "warrior": {
+    "url": "./assets/characters/warrior-avatar.png",
+    "point": 100,
+    "status": [
+      {
+        "keys": [],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/warrior-normal-left-1.png",
+            "right_url": "./assets/characters/warrior-normal-right-1.png",
+            "duration": 150
+          },
+          {
+            "left_url": "./assets/characters/warrior-normal-left-2.png",
+            "right_url": "./assets/characters/warrior-normal-right-2.png",
+            "duration": 150
+          },
+          {
+            "left_url": "./assets/characters/warrior-normal-left-3.png",
+            "right_url": "./assets/characters/warrior-normal-right-3.png",
+            "duration": 150
+          }
+        ],
+        "block": {
+          "x": 20,
+          "y": 10,
+          "w": 60,
+          "h": 90
+        },
+        "type": "normal",
+        "power": 0,
+        "duration": 0
+      },
+      {
+        "keys": [
+          "A"
+        ],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/warrior-attack-left-1.png",
+            "right_url": "./assets/characters/warrior-attack-right-1.png",
+            "duration": 100
+          },
+          {
+            "left_url": "./assets/characters/warrior-attack-left-2.png",
+            "right_url": "./assets/characters/warrior-attack-right-2.png",
+            "duration": 100
+          },
+          {
+            "left_url": "./assets/characters/warrior-attack-left-3.png",
+            "right_url": "./assets/characters/warrior-attack-right-3.png",
+            "duration": 100
+          }
+        ],
+        "block": {
+          "x": 20,
+          "y": 10,
+          "w": 60,
+          "h": 90
+        },
+        "type": "attacking",
+        "power": 15,
+        "attack": {
+          "x": 70,
+          "y": 30,
+          "w": 40,
+          "h": 30
+        },
+        "duration": 300
+      },
+      {
+        "keys": [
+          "B",
+          "F",
+          "A"
+        ],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/warrior-special-left-1.png",
+            "right_url": "./assets/characters/warrior-special-right-1.png",
+            "duration": 80
+          },
+          {
+            "left_url": "./assets/characters/warrior-special-left-2.png",
+            "right_url": "./assets/characters/warrior-special-right-2.png",
+            "duration": 80
+          },
+          {
+            "left_url": "./assets/characters/warrior-special-left-3.png",
+            "right_url": "./assets/characters/warrior-special-right-3.png",
+            "duration": 80
+          },
+          {
+            "left_url": "./assets/characters/warrior-special-left-4.png",
+            "right_url": "./assets/characters/warrior-special-right-4.png",
+            "duration": 80
+          }
+        ],
+        "block": {
+          "x": 20,
+          "y": 10,
+          "w": 60,
+          "h": 90
+        },
+        "type": "attacking",
+        "power": 25,
+        "attack": {
+          "x": 70,
+          "y": 20,
+          "w": 50,
+          "h": 50
+        },
+        "duration": 320
+      },
+      {
+        "keys": [],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/warrior-attacked-left-1.png",
+            "right_url": "./assets/characters/warrior-attacked-right-1.png",
+            "duration": 100
+          },
+          {
+            "left_url": "./assets/characters/warrior-attacked-left-2.png",
+            "right_url": "./assets/characters/warrior-attacked-right-2.png",
+            "duration": 100
+          }
+        ],
+        "block": {
+          "x": 20,
+          "y": 10,
+          "w": 60,
+          "h": 90
+        },
+        "type": "attacked",
+        "power": 0,
+        "duration": 200
+      },
+      {
+        "keys": [],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/warrior-knocked-left-1.png",
+            "right_url": "./assets/characters/warrior-knocked-right-1.png",
+            "duration": 200
+          },
+          {
+            "left_url": "./assets/characters/warrior-knocked-left-2.png",
+            "right_url": "./assets/characters/warrior-knocked-right-2.png",
+            "duration": 200
+          },
+          {
+            "left_url": "./assets/characters/warrior-knocked-left-3.png",
+            "right_url": "./assets/characters/warrior-knocked-right-3.png",
+            "duration": 9999
+          }
+        ],
+        "block": {
+          "x": 10,
+          "y": 50,
+          "w": 80,
+          "h": 40
+        },
+        "type": "knocked",
+        "power": 0,
+        "duration": 0
+      }
+    ]
+  },
+  "mage": {
+    "url": "./assets/characters/mage-avatar.png",
+    "point": 80,
+    "status": [
+      {
+        "keys": [],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/mage-normal-left-1.png",
+            "right_url": "./assets/characters/mage-normal-right-1.png",
+            "duration": 200
+          },
+          {
+            "left_url": "./assets/characters/mage-normal-left-2.png",
+            "right_url": "./assets/characters/mage-normal-right-2.png",
+            "duration": 200
+          }
+        ],
+        "block": {
+          "x": 25,
+          "y": 15,
+          "w": 50,
+          "h": 85
+        },
+        "type": "normal",
+        "power": 0,
+        "duration": 0
+      },
+      {
+        "keys": [
+          "A"
+        ],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/mage-attack-left-1.png",
+            "right_url": "./assets/characters/mage-attack-right-1.png",
+            "duration": 120
+          },
+          {
+            "left_url": "./assets/characters/mage-attack-left-2.png",
+            "right_url": "./assets/characters/mage-attack-right-2.png",
+            "duration": 120
+          },
+          {
+            "left_url": "./assets/characters/mage-attack-left-3.png",
+            "right_url": "./assets/characters/mage-attack-right-3.png",
+            "duration": 120
+          }
+        ],
+        "block": {
+          "x": 25,
+          "y": 15,
+          "w": 50,
+          "h": 85
+        },
+        "type": "attacking",
+        "power": 20,
+        "attack": {
+          "x": 65,
+          "y": 25,
+          "w": 45,
+          "h": 35
+        },
+        "duration": 360
+      },
+      {
+        "keys": [
+          "F",
+          "F",
+          "A"
+        ],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/mage-fireball-left-1.png",
+            "right_url": "./assets/characters/mage-fireball-right-1.png",
+            "duration": 100
+          },
+          {
+            "left_url": "./assets/characters/mage-fireball-left-2.png",
+            "right_url": "./assets/characters/mage-fireball-right-2.png",
+            "duration": 100
+          },
+          {
+            "left_url": "./assets/characters/mage-fireball-left-3.png",
+            "right_url": "./assets/characters/mage-fireball-right-3.png",
+            "duration": 100
+          }
+        ],
+        "block": {
+          "x": 25,
+          "y": 15,
+          "w": 50,
+          "h": 85
+        },
+        "type": "attacking",
+        "power": 30,
+        "attack": {
+          "x": 65,
+          "y": 20,
+          "w": 60,
+          "h": 40
+        },
+        "duration": 300
+      },
+      {
+        "keys": [],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/mage-attacked-left-1.png",
+            "right_url": "./assets/characters/mage-attacked-right-1.png",
+            "duration": 150
+          },
+          {
+            "left_url": "./assets/characters/mage-attacked-left-2.png",
+            "right_url": "./assets/characters/mage-attacked-right-2.png",
+            "duration": 150
+          }
+        ],
+        "block": {
+          "x": 25,
+          "y": 15,
+          "w": 50,
+          "h": 85
+        },
+        "type": "attacked",
+        "power": 0,
+        "duration": 300
+      },
+      {
+        "keys": [],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/mage-knocked-left-1.png",
+            "right_url": "./assets/characters/mage-knocked-right-1.png",
+            "duration": 250
+          },
+          {
+            "left_url": "./assets/characters/mage-knocked-left-2.png",
+            "right_url": "./assets/characters/mage-knocked-right-2.png",
+            "duration": 250
+          },
+          {
+            "left_url": "./assets/characters/mage-knocked-left-3.png",
+            "right_url": "./assets/characters/mage-knocked-right-3.png",
+            "duration": 9999
+          }
+        ],
+        "block": {
+          "x": 15,
+          "y": 55,
+          "w": 70,
+          "h": 35
+        },
+        "type": "knocked",
+        "power": 0,
+        "duration": 0
+      }
+    ]
+  },
+  "ninja": {
+    "url": "./assets/characters/ninja-avatar.png",
+    "point": 90,
+    "status": [
+      {
+        "keys": [],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/ninja-normal-left-1.png",
+            "right_url": "./assets/characters/ninja-normal-right-1.png",
+            "duration": 120
+          },
+          {
+            "left_url": "./assets/characters/ninja-normal-left-2.png",
+            "right_url": "./assets/characters/ninja-normal-right-2.png",
+            "duration": 120
+          },
+          {
+            "left_url": "./assets/characters/ninja-normal-left-3.png",
+            "right_url": "./assets/characters/ninja-normal-right-3.png",
+            "duration": 120
+          },
+          {
+            "left_url": "./assets/characters/ninja-normal-left-4.png",
+            "right_url": "./assets/characters/ninja-normal-right-4.png",
+            "duration": 120
+          }
+        ],
+        "block": {
+          "x": 22,
+          "y": 12,
+          "w": 56,
+          "h": 88
+        },
+        "type": "normal",
+        "power": 0,
+        "duration": 0
+      },
+      {
+        "keys": [
+          "A"
+        ],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/ninja-attack-left-1.png",
+            "right_url": "./assets/characters/ninja-attack-right-1.png",
+            "duration": 80
+          },
+          {
+            "left_url": "./assets/characters/ninja-attack-left-2.png",
+            "right_url": "./assets/characters/ninja-attack-right-2.png",
+            "duration": 80
+          },
+          {
+            "left_url": "./assets/characters/ninja-attack-left-3.png",
+            "right_url": "./assets/characters/ninja-attack-right-3.png",
+            "duration": 80
+          },
+          {
+            "left_url": "./assets/characters/ninja-attack-left-4.png",
+            "right_url": "./assets/characters/ninja-attack-right-4.png",
+            "duration": 80
+          }
+        ],
+        "block": {
+          "x": 22,
+          "y": 12,
+          "w": 56,
+          "h": 88
+        },
+        "type": "attacking",
+        "power": 18,
+        "attack": {
+          "x": 68,
+          "y": 28,
+          "w": 42,
+          "h": 32
+        },
+        "duration": 320
+      },
+      {
+        "keys": [
+          "B",
+          "B",
+          "A"
+        ],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/ninja-dash-left-1.png",
+            "right_url": "./assets/characters/ninja-dash-right-1.png",
+            "duration": 60
+          },
+          {
+            "left_url": "./assets/characters/ninja-dash-left-2.png",
+            "right_url": "./assets/characters/ninja-dash-right-2.png",
+            "duration": 60
+          },
+          {
+            "left_url": "./assets/characters/ninja-dash-left-3.png",
+            "right_url": "./assets/characters/ninja-dash-right-3.png",
+            "duration": 60
+          },
+          {
+            "left_url": "./assets/characters/ninja-dash-left-4.png",
+            "right_url": "./assets/characters/ninja-dash-right-4.png",
+            "duration": 60
+          },
+          {
+            "left_url": "./assets/characters/ninja-dash-left-5.png",
+            "right_url": "./assets/characters/ninja-dash-right-5.png",
+            "duration": 60
+          }
+        ],
+        "block": {
+          "x": 22,
+          "y": 12,
+          "w": 56,
+          "h": 88
+        },
+        "type": "attacking",
+        "power": 22,
+        "attack": {
+          "x": 68,
+          "y": 25,
+          "w": 48,
+          "h": 38
+        },
+        "duration": 300
+      },
+      {
+        "keys": [],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/ninja-attacked-left-1.png",
+            "right_url": "./assets/characters/ninja-attacked-right-1.png",
+            "duration": 120
+          },
+          {
+            "left_url": "./assets/characters/ninja-attacked-left-2.png",
+            "right_url": "./assets/characters/ninja-attacked-right-2.png",
+            "duration": 120
+          }
+        ],
+        "block": {
+          "x": 22,
+          "y": 12,
+          "w": 56,
+          "h": 88
+        },
+        "type": "attacked",
+        "power": 0,
+        "duration": 240
+      },
+      {
+        "keys": [],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/ninja-knocked-left-1.png",
+            "right_url": "./assets/characters/ninja-knocked-right-1.png",
+            "duration": 180
+          },
+          {
+            "left_url": "./assets/characters/ninja-knocked-left-2.png",
+            "right_url": "./assets/characters/ninja-knocked-right-2.png",
+            "duration": 180
+          },
+          {
+            "left_url": "./assets/characters/ninja-knocked-left-3.png",
+            "right_url": "./assets/characters/ninja-knocked-right-3.png",
+            "duration": 9999
+          }
+        ],
+        "block": {
+          "x": 12,
+          "y": 52,
+          "w": 76,
+          "h": 38
+        },
+        "type": "knocked",
+        "power": 0,
+        "duration": 0
+      }
+    ]
+  }
+}

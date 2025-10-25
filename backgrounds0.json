@@ -1,0 +1,14 @@
+{
+  "dojo": {
+    "url": "./assets/backgrounds/dojo.png"
+  },
+  "forest": {
+    "url": "./assets/backgrounds/forest.png"
+  },
+  "castle": {
+    "url": "./assets/backgrounds/castle.png"
+  },
+  "mountain": {
+    "url": "./assets/backgrounds/mountain.png"
+  }
+}
