@@ -10,35 +10,40 @@ class Character {
         this.isLeftSide = isLeftSide;
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
-        
+
         // Position initialization
         this.position = {
             x: isLeftSide ? 100 : canvasWidth - 100,
             y: canvasHeight - 200
         };
-        
+
         // State management
         this.states = {};
         this.currentState = null;
         this.stateTimer = 0;
         this.animationTimer = 0;
-        
+
         // Knockback management
         this.isKnockedBack = false;
         this.knockbackTarget = null;
-        
+
+        // Invincibility management (防止短时间内连续受击)
+        this.isInvincible = false;
+        this.invincibilityTimer = 0;
+        this.invincibilityDuration = 100; // 1秒无敌时间
+
         // Load all states from character data
         for (const stateData of characterData.status) {
             const state = new CharacterState(stateData);
             this.states[state.type] = state;
-            
+
             // Also store attacking states by their key sequence
             if (state.type === 'attacking' && state.keys.length > 0) {
                 const keyString = state.keys.join(',');
                 this.states[keyString] = state;
             }
         }
-        
+
         // Set initial state to normal
         if (this.states.normal) {
             this.currentState = this.states.normal;
@@ -50,10 +55,19 @@ class Character {
     update(deltaTime) {
         // Update state timer
         this.stateTimer += deltaTime;
-        
+
         // Update animation timer
         this.animationTimer += deltaTime;
-        
+
+        // Update invincibility timer
+        if (this.isInvincible) {
+            this.invincibilityTimer += deltaTime;
+            if (this.invincibilityTimer >= this.invincibilityDuration) {
+                this.isInvincible = false;
+                this.invincibilityTimer = 0;
+            }
+        }
+
         // Check for state auto-recovery
         if (this.currentState.type === 'attacking' || this.currentState.type === 'attacked') {
             if (this.currentState.isAnimationComplete(this.animationTimer)) {
@@ -65,12 +79,12 @@ class Character {
     changeState(stateName) {
         // Find the state by name or type
         let newState = this.states[stateName];
-        
+
         if (!newState) {
             console.warn(`State ${stateName} not found for character ${this.name}`);
             return;
         }
-        
+
         // Change to new state
         this.currentState = newState;
         this.stateTimer = 0;
@@ -82,10 +96,10 @@ class Character {
         if (this.currentState.type === 'knocked' || this.isKnockedBack) {
             return;
         }
-        
+
         const moveSpeed = 5;
         this.position.x -= moveSpeed;
-        
+
         // Boundary check - prevent moving off left edge
         if (this.position.x < 0) {
             this.position.x = 0;
@@ -97,10 +111,10 @@ class Character {
         if (this.currentState.type === 'knocked' || this.isKnockedBack) {
             return;
         }
-        
+
         const moveSpeed = 5;
         this.position.x += moveSpeed;
-        
+
         // Boundary check - prevent moving off right edge
         if (this.position.x > this.canvasWidth) {
             this.position.x = this.canvasWidth;
@@ -112,7 +126,7 @@ class Character {
         if (this.currentState.type === 'knocked' || this.isKnockedBack) {
             return;
         }
-        
+
         // If a key sequence is provided, try to find matching special attack
         if (keySequence) {
             const keyString = keySequence.join(',');
@@ -122,7 +136,7 @@ class Character {
                 return;
             }
         }
-        
+
         // Default to basic attacking state
         if (this.states.attacking) {
             this.changeState('attacking');
@@ -130,9 +144,18 @@ class Character {
     }
 
     takeDamage(damage) {
+        // 如果处于无敌状态或已经被击倒，不受伤害
+        if (this.isInvincible || this.currentState.type === 'knocked') {
+            return;
+        }
+
         // Reduce health
         this.currentHealthPoint -= damage;
-        
+
+        // 激活无敌时间
+        this.isInvincible = true;
+        this.invincibilityTimer = 0;
+
         // Check if health dropped to zero or below
         if (this.currentHealthPoint <= 0) {
             this.currentHealthPoint = 0;
@@ -148,9 +171,9 @@ class Character {
         if (!this.currentState.hitBox) {
             return null;
         }
-        
+
         const hitBox = this.currentState.hitBox;
-        
+
         // Determine facing direction based on opponent position
         let isFacingRight;
         if (opponentX !== null) {
@@ -158,7 +181,7 @@ class Character {
         } else {
             isFacingRight = this.position.x < this.canvasWidth / 2;
         }
-        
+
         // Return absolute coordinates based on character position and facing direction
         // When facing right (left_url), use hitBox as-is from left edge
         // When facing left (right_url), mirror hitBox from right edge
@@ -174,9 +197,9 @@ class Character {
         if (!this.currentState.attackBox) {
             return null;
         }
-        
+
         const attackBox = this.currentState.attackBox;
-        
+
         // Determine facing direction based on opponent position
         let isFacingRight;
         if (opponentX !== null) {
@@ -184,7 +207,7 @@ class Character {
         } else {
             isFacingRight = this.position.x < this.canvasWidth / 2;
         }
-        
+
         // Return absolute coordinates based on character position and facing direction
         // When facing right (left_url), use attackBox as-is from left edge
         // When facing left (right_url), mirror attackBox from right edge
@@ -198,13 +221,13 @@ class Character {
 
     getCurrentImage(opponentX = null) {
         const frameIndex = this.currentState.getCurrentFrame(this.animationTimer);
-        
+
         if (frameIndex === null || frameIndex >= this.currentState.images.length) {
             return null;
         }
-        
+
         const frame = this.currentState.images[frameIndex];
-        
+
         // Determine facing direction based on opponent position if available
         // Otherwise fall back to canvas center
         let isOnLeftSide;
@@ -215,7 +238,7 @@ class Character {
             // Fall back to canvas center
             isOnLeftSide = this.position.x < this.canvasWidth / 2;
         }
-        
+
         // Return the appropriate image URL based on facing direction
         return isOnLeftSide ? frame.left_url : frame.right_url;
     }
@@ -223,7 +246,11 @@ class Character {
     revive() {
         // Restore health to maximum
         this.currentHealthPoint = this.maxHealthPoint;
-        
+
+        // 清除无敌状态
+        this.isInvincible = false;
+        this.invincibilityTimer = 0;
+
         // Return to normal state
         this.changeState('normal');
     }

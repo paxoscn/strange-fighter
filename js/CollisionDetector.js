@@ -35,6 +35,11 @@ class CollisionDetector {
             return false;
         }
 
+        // 如果防御者处于无敌状态，攻击无效
+        if (defender.isInvincible) {
+            return false;
+        }
+
         // Get attack box from attacker (pass defender position for correct facing direction)
         const attackBox = attacker.getAttackBox(defender.position.x);
         if (!attackBox) {
