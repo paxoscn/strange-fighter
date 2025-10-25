@@ -34,12 +34,15 @@ class Renderer {
                 this.ctx.filter = 'brightness(2)';
             }
             
+            // Calculate y position to align image bottom with canvas bottom
+            const yPos = this.canvas.height - img.height;
+            
             // Apply horizontal flip for right-side characters if needed
             if (!character.isLeftSide) {
                 this.ctx.scale(-1, 1);
-                this.ctx.drawImage(img, -character.position.x - img.width, character.position.y);
+                this.ctx.drawImage(img, -character.position.x - img.width, yPos);
             } else {
-                this.ctx.drawImage(img, character.position.x, character.position.y);
+                this.ctx.drawImage(img, character.position.x, yPos);
             }
             
             this.ctx.restore();
