@@ -255,6 +255,7 @@ class Character {
         }
 
         const headInfo = this.currentState.headInfo;
+        const hitBox = this.currentState.hitBox;
 
         // Determine facing direction
         let isFacingRight;
@@ -265,8 +266,14 @@ class Character {
         }
 
         // Calculate absolute position
+        // When facing right (left_url): use headInfo.x from left edge
+        // When facing left (right_url): calculate from right edge (hitBox.w - headInfo.x)
+        const headX = isFacingRight 
+            ? headInfo.x 
+            : (hitBox ? hitBox.w - headInfo.x : -headInfo.x);
+
         return {
-            x: this.position.x + (isFacingRight ? headInfo.x - headInfo.w / 2 : -headInfo.x - headInfo.w / 2),
+            x: this.position.x + headX - headInfo.w / 2,
             y: this.position.y + headInfo.y - headInfo.h / 2,
             w: headInfo.w,
             h: headInfo.h,
