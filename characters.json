@@ -89,16 +89,16 @@
       }
     ]
   },
-  "tom1": {
-    "url": "./assets/characters/tom/avatar.png",
+  "mickey": {
+    "url": "./assets/characters/mickey/avatar.png",
     "point": 100,
     "status": [
       {
         "keys": [],
         "imgs": [
           {
-            "left_url": "./assets/characters/tom/normal-left.png",
-            "right_url": "./assets/characters/tom/normal-right.png",
+            "left_url": "./assets/characters/mickey/normal-left.png",
+            "right_url": "./assets/characters/mickey/normal-right.png",
             "duration": 300
           }
         ],
@@ -118,9 +118,19 @@
         ],
         "imgs": [
           {
-            "left_url": "./assets/characters/tom/attacking-left.png",
-            "right_url": "./assets/characters/tom/attacking-right.png",
-            "duration": 300
+            "left_url": "./assets/characters/mickey/attacking1-left.png",
+            "right_url": "./assets/characters/mickey/attacking1-right.png",
+            "duration": 100
+          },
+          {
+            "left_url": "./assets/characters/mickey/attacking2-left.png",
+            "right_url": "./assets/characters/mickey/attacking2-right.png",
+            "duration": 100
+          },
+          {
+            "left_url": "./assets/characters/mickey/attacking3-left.png",
+            "right_url": "./assets/characters/mickey/attacking3-right.png",
+            "duration": 100
           }
         ],
         "block": {
@@ -143,8 +153,8 @@
         "keys": [],
         "imgs": [
           {
-            "left_url": "./assets/characters/tom/attacked-left.png",
-            "right_url": "./assets/characters/tom/attacked-right.png",
+            "left_url": "./assets/characters/mickey/attacked-left.png",
+            "right_url": "./assets/characters/mickey/attacked-right.png",
             "duration": 200
           }
         ],
@@ -162,8 +172,8 @@
         "keys": [],
         "imgs": [
           {
-            "left_url": "./assets/characters/tom/knocked-left.png",
-            "right_url": "./assets/characters/tom/knocked-right.png",
+            "left_url": "./assets/characters/mickey/knocked-left.png",
+            "right_url": "./assets/characters/mickey/knocked-right.png",
             "duration": 9999
           }
         ],
