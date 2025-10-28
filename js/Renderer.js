@@ -49,47 +49,36 @@ class Renderer {
         }
     }
 
-    drawCustomHead(character, opponentX = null, characterYPos = 0) {
+    drawCustomHead(character, opponentX = null) {
         const headInfo = character.getHeadInfo(opponentX);
         if (!headInfo) return;
 
         const headImg = this.getImageFromCache(character.customHeadImage);
         if (!headImg || !headImg.complete || headImg.naturalWidth === 0) return;
 
-        // this.ctx.save();
+        this.ctx.save();
 
-        // // Draw the head as a circle (clipped)
-        // this.ctx.beginPath();
-        // this.ctx.arc(
-        //     headInfo.x + headInfo.w / 2,
-        //     headInfo.y + headInfo.h / 2,
-        //     headInfo.w / 2,
-        //     0,
-        //     Math.PI * 2
-        // );
-        // this.ctx.closePath();
-        // this.ctx.clip();
+        // Calculate center point for rotation and clipping
+        const centerX = headInfo.x + headInfo.w / 2;
+        const centerY = headInfo.y + headInfo.h / 2;
 
-        // Rotate if needed
+        // Apply rotation if needed
         if (headInfo.direction !== 90) {
-            const centerX = headInfo.x + headInfo.w / 2;
-            const centerY = headInfo.y + headInfo.h / 2;
             this.ctx.translate(centerX, centerY);
-            this.ctx.rotate((headInfo.direction - 90) * Math.PI / 180);
+            this.ctx.rotate(((headInfo.direction - 90) * Math.PI) / 180);
             this.ctx.translate(-centerX, -centerY);
         }
 
-        // Draw the head image
-        this.ctx.drawImage(
-            headImg,
-            headInfo.x,
-            headInfo.y,
-            headInfo.w,
-            headInfo.h
-        );
-        // console.log("xxx", headImg);
+        // Create circular clipping path
+        this.ctx.beginPath();
+        this.ctx.arc(centerX, centerY, headInfo.w / 2, 0, Math.PI * 2);
+        this.ctx.closePath();
+        this.ctx.clip();
 
-        // this.ctx.restore();
+        // Draw the head image
+        this.ctx.drawImage(headImg, headInfo.x, headInfo.y, headInfo.w, headInfo.h);
+
+        this.ctx.restore();
     }
 
     getImageFromCache(url) {
@@ -307,35 +296,35 @@ class Renderer {
 
     drawCapturedHeadPreview(imageDataUrl, x, y, label) {
         const size = 100;
-        
+
         // Draw background
         this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
         this.ctx.fillRect(x, y, size, size);
-        
+
         // Load and draw the captured image
         const img = this.getImageFromCache(imageDataUrl);
         if (img && img.complete && img.naturalWidth > 0) {
             this.ctx.save();
-            
+
             // Clip to circle
             this.ctx.beginPath();
             this.ctx.arc(x + size / 2, y + size / 2, size / 2 - 5, 0, Math.PI * 2);
             this.ctx.closePath();
             this.ctx.clip();
-            
+
             // Draw image
             this.ctx.drawImage(img, x + 5, y + 5, size - 10, size - 10);
-            
+
             this.ctx.restore();
         }
-        
+
         // Draw border
         this.ctx.strokeStyle = label === 'P1' ? '#00FF00' : '#0000FF';
         this.ctx.lineWidth = 3;
         this.ctx.beginPath();
         this.ctx.arc(x + size / 2, y + size / 2, size / 2, 0, Math.PI * 2);
         this.ctx.stroke();
-        
+
         // Draw label
         this.drawText(label, x + size / 2, y - 10, {
             font: 'bold 20px Arial',
@@ -343,7 +332,7 @@ class Renderer {
             align: 'center',
             baseline: 'bottom'
         });
-        
+
         // Draw "已捕获" text
         this.drawText('已捕获', x + size / 2, y + size + 20, {
             font: '14px Arial',
