@@ -41,7 +41,55 @@ class Renderer {
             this.ctx.drawImage(img, character.position.x, yPos);
 
             this.ctx.restore();
+
+            // Draw custom head if available
+            if (character.customHeadImage) {
+                this.drawCustomHead(character, opponentX, yPos);
+            }
         }
+    }
+
+    drawCustomHead(character, opponentX = null, characterYPos = 0) {
+        const headInfo = character.getHeadInfo(opponentX);
+        if (!headInfo) return;
+
+        const headImg = this.getImageFromCache(character.customHeadImage);
+        if (!headImg || !headImg.complete || headImg.naturalWidth === 0) return;
+
+        // this.ctx.save();
+
+        // // Draw the head as a circle (clipped)
+        // this.ctx.beginPath();
+        // this.ctx.arc(
+        //     headInfo.x + headInfo.w / 2,
+        //     headInfo.y + headInfo.h / 2,
+        //     headInfo.w / 2,
+        //     0,
+        //     Math.PI * 2
+        // );
+        // this.ctx.closePath();
+        // this.ctx.clip();
+
+        // Rotate if needed
+        if (headInfo.direction !== 90) {
+            const centerX = headInfo.x + headInfo.w / 2;
+            const centerY = headInfo.y + headInfo.h / 2;
+            this.ctx.translate(centerX, centerY);
+            this.ctx.rotate((headInfo.direction - 90) * Math.PI / 180);
+            this.ctx.translate(-centerX, -centerY);
+        }
+
+        // Draw the head image
+        this.ctx.drawImage(
+            headImg,
+            headInfo.x,
+            headInfo.y,
+            headInfo.w,
+            headInfo.h
+        );
+        // console.log("xxx", headImg);
+
+        // this.ctx.restore();
     }
 
     getImageFromCache(url) {
@@ -162,6 +210,14 @@ class Renderer {
         this.drawText('双方选择完成后按空格键开始游戏', this.canvas.width / 2, 100, {
             font: '20px Arial',
             color: '#CCCCCC',
+            align: 'center',
+            baseline: 'middle'
+        });
+
+        // Draw camera capture instruction
+        this.drawText('按 Q 键为玩家1捕获头像 | 按 P 键为玩家2捕获头像', this.canvas.width / 2, 125, {
+            font: '16px Arial',
+            color: '#FFAA00',
             align: 'center',
             baseline: 'middle'
         });

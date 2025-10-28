@@ -3,6 +3,7 @@ class CharacterState {
         this.keys = stateData.keys || [];
         this.images = stateData.imgs || [];
         this.hitBox = stateData.block || null;
+        this.headInfo = stateData.head || null; // 头像位置信息
         this.type = stateData.type || 'normal';
         this.power = stateData.power || 0;
         this.attackBox = stateData.attack || null;

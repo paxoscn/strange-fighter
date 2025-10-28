@@ -3,6 +3,8 @@ class CharacterSelectionManager {
         this.availableCharacters = characters;
         this.player1Selection = null;
         this.player2Selection = null;
+        this.player1CustomHead = null; // 玩家1的自定义头像
+        this.player2CustomHead = null; // 玩家2的自定义头像
     }
 
     /**
@@ -86,11 +88,37 @@ class CharacterSelectionManager {
     }
 
     /**
+     * Set custom head image for a player
+     * @param {number} playerId - Player ID (1 or 2)
+     * @param {string} imageDataUrl - Data URL of the captured image
+     */
+    setCustomHead(playerId, imageDataUrl) {
+        if (playerId === 1) {
+            this.player1CustomHead = imageDataUrl;
+            console.log('Player 1 custom head set');
+        } else if (playerId === 2) {
+            this.player2CustomHead = imageDataUrl;
+            console.log('Player 2 custom head set');
+        }
+    }
+
+    /**
+     * Get custom head image for a player
+     * @param {number} playerId - Player ID (1 or 2)
+     * @returns {string|null} Data URL of the custom head or null
+     */
+    getCustomHead(playerId) {
+        return playerId === 1 ? this.player1CustomHead : this.player2CustomHead;
+    }
+
+    /**
      * Reset all selections to initial state
      */
     reset() {
         this.player1Selection = null;
         this.player2Selection = null;
+        this.player1CustomHead = null;
+        this.player2CustomHead = null;
     }
 }
 

@@ -4,6 +4,7 @@ import CharacterSelectionManager from './CharacterSelectionManager.js';
 import InputHandler from './InputHandler.js';
 import CollisionDetector from './CollisionDetector.js';
 import Renderer from './Renderer.js';
+import CameraManager from './CameraManager.js';
 
 class GameManager {
     constructor(canvas) {
@@ -31,6 +32,7 @@ class GameManager {
         this.selectionManager = null;
         this.inputHandler = null;
         this.renderer = null;
+        this.cameraManager = null;
 
         // Knockback state
         this.knockbackState = {
@@ -73,6 +75,7 @@ class GameManager {
             this.inputHandler = new InputHandler();
             this.inputHandler.init();
             this.selectionManager = new CharacterSelectionManager(this.charactersData);
+            this.cameraManager = new CameraManager();
 
             // Set initial state
             this.setState(this.STATE.CHARACTER_SELECTION);
@@ -215,13 +218,44 @@ class GameManager {
             ...selections.player2.data
         };
 
-        this.player1 = new Character(player1Data, 1, true, this.canvas.width, this.canvas.height);
-        this.player2 = new Character(player2Data, 2, false, this.canvas.width, this.canvas.height);
+        // Get custom heads if available
+        const player1Head = this.selectionManager.getCustomHead(1);
+        const player2Head = this.selectionManager.getCustomHead(2);
+
+        this.player1 = new Character(player1Data, 1, true, this.canvas.width, this.canvas.height, player1Head);
+        this.player2 = new Character(player2Data, 2, false, this.canvas.width, this.canvas.height, player2Head);
 
         // Switch to battle state
         this.setState(this.STATE.BATTLE);
 
         console.log('Battle started:', selections.player1.name, 'vs', selections.player2.name);
+    }
+
+    async handleCameraCapture(playerId) {
+        try {
+            // Initialize camera if not already done
+            if (!this.cameraManager.isInitialized) {
+                await this.cameraManager.init();
+            }
+
+            // Wait for 1 second or the image is too dark
+            setTimeout(() => {
+                try {
+                    // Capture image
+                    const imageDataUrl = this.cameraManager.captureImage();
+                    if (imageDataUrl) {
+                        this.selectionManager.setCustomHead(playerId, imageDataUrl);
+                        console.log(`Captured head for player ${playerId}`);
+                    }
+                } catch (error) {
+                    console.error('Failed to capture camera image:', error);
+                    alert('无法访问摄像头: ' + error.message);
+                }
+            }, 1000);
+        } catch (error) {
+            console.error('Failed to capture camera image:', error);
+            alert('无法访问摄像头: ' + error.message);
+        }
     }
 
     updateBattle(deltaTime) {
@@ -402,6 +436,11 @@ class GameManager {
     }
 
     resetGame() {
+        // Clean up camera
+        if (this.cameraManager) {
+            this.cameraManager.cleanup();
+        }
+
         // Reset selection manager
         this.selectionManager.reset();
 
@@ -443,6 +482,14 @@ class GameManager {
         // Update based on current state
         switch (this.currentState) {
             case this.STATE.CHARACTER_SELECTION:
+                // Check for camera capture keys (Q for player 1, P for player 2)
+                if (this.inputHandler.isKeyPressed('q') || this.inputHandler.isKeyPressed('Q')) {
+                    this.handleCameraCapture(1);
+                }
+                if (this.inputHandler.isKeyPressed('p') || this.inputHandler.isKeyPressed('P')) {
+                    this.handleCameraCapture(2);
+                }
+
                 // Check if spacebar is pressed and both players have selected
                 if (this.inputHandler.isKeyPressed(' ') &&
                     this.selectionManager.isSelectionComplete()) {

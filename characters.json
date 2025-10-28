@@ -18,6 +18,13 @@
           "w": 150,
           "h": 180
         },
+        "head": {
+          "x": 75,
+          "y": 40,
+          "w": 80,
+          "h": 80,
+          "direction": 90
+        },
         "type": "normal",
         "power": 0,
         "duration": 0
@@ -38,6 +45,13 @@
           "y": 0,
           "w": 150,
           "h": 180
+        },
+        "head": {
+          "x": 75,
+          "y": 40,
+          "w": 80,
+          "h": 80,
+          "direction": 90
         },
         "type": "attacking",
         "power": 15,
@@ -64,6 +78,13 @@
           "w": 150,
           "h": 180
         },
+        "head": {
+          "x": 75,
+          "y": 40,
+          "w": 80,
+          "h": 80,
+          "direction": 90
+        },
         "type": "attacked",
         "power": 0,
         "duration": 200
@@ -82,6 +103,13 @@
           "y": 0,
           "w": 150,
           "h": 180
+        },
+        "head": {
+          "x": 75,
+          "y": 40,
+          "w": 80,
+          "h": 80,
+          "direction": 0
         },
         "type": "knocked",
         "power": 0,
@@ -107,6 +135,13 @@
           "y": 0,
           "w": 150,
           "h": 180
+        },
+        "head": {
+          "x": 75,
+          "y": 45,
+          "w": 50,
+          "h": 50,
+          "direction": 90
         },
         "type": "normal",
         "power": 0,
@@ -139,6 +174,13 @@
           "w": 150,
           "h": 180
         },
+        "head": {
+          "x": 75,
+          "y": 40,
+          "w": 50,
+          "h": 50,
+          "direction": 90
+        },
         "type": "attacking",
         "power": 15,
         "attack": {
@@ -164,6 +206,13 @@
           "w": 150,
           "h": 180
         },
+        "head": {
+          "x": 75,
+          "y": 50,
+          "w": 50,
+          "h": 50,
+          "direction": 90
+        },
         "type": "attacked",
         "power": 0,
         "duration": 200
@@ -182,6 +231,13 @@
           "y": 0,
           "w": 150,
           "h": 180
+        },
+        "head": {
+          "x": 75,
+          "y": 130,
+          "w": 50,
+          "h": 50,
+          "direction": 0
         },
         "type": "knocked",
         "power": 0,

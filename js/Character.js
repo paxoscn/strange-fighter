@@ -1,7 +1,7 @@
 import CharacterState from './CharacterState.js';
 
 class Character {
-    constructor(characterData, playerId, isLeftSide, canvasWidth, canvasHeight) {
+    constructor(characterData, playerId, isLeftSide, canvasWidth, canvasHeight, customHeadImage = null) {
         this.name = characterData.name || 'Unknown';
         this.maxHealthPoint = characterData.point;
         this.currentHealthPoint = characterData.point;
@@ -10,6 +10,7 @@ class Character {
         this.isLeftSide = isLeftSide;
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
+        this.customHeadImage = customHeadImage; // 自定义头像图片
 
         // Position initialization
         this.position = {
@@ -241,6 +242,36 @@ class Character {
 
         // Return the appropriate image URL based on facing direction
         return isOnLeftSide ? frame.left_url : frame.right_url;
+    }
+
+    /**
+     * Get head position and size for rendering custom head
+     * @param {number} opponentX - Opponent's x position for determining facing direction
+     * @returns {Object|null} Head rendering info with x, y, w, h, direction
+     */
+    getHeadInfo(opponentX = null) {
+        if (!this.currentState.headInfo) {
+            return null;
+        }
+
+        const headInfo = this.currentState.headInfo;
+
+        // Determine facing direction
+        let isFacingRight;
+        if (opponentX !== null) {
+            isFacingRight = this.position.x < opponentX;
+        } else {
+            isFacingRight = this.position.x < this.canvasWidth / 2;
+        }
+
+        // Calculate absolute position
+        return {
+            x: this.position.x + (isFacingRight ? headInfo.x - headInfo.w / 2 : -headInfo.x - headInfo.w / 2),
+            y: this.position.y + headInfo.y - headInfo.h / 2,
+            w: headInfo.w,
+            h: headInfo.h,
+            direction: headInfo.direction
+        };
     }
 
     revive() {
