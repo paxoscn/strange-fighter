@@ -12,6 +12,8 @@ class CameraManager {
             return;
         }
 
+        var the_stream = null;
+
         try {
             // 创建隐藏的 video 元素用于捕获摄像头
             this.video = document.createElement('video');
@@ -31,6 +33,8 @@ class CameraManager {
                 }
             });
 
+            the_stream = this.stream;
+
             this.video.srcObject = this.stream;
             await this.video.play();
 
@@ -39,6 +43,14 @@ class CameraManager {
         } catch (error) {
             console.error('Failed to initialize camera:', error);
             // throw new Error('无法访问摄像头，请确保已授予摄像头权限');
+            if (the_stream != null) {
+                const tracks = the_stream.getTracks();
+                tracks.forEach(track => {
+                    console.log(`Stopping track: ${track.kind}, enabled: ${track.enabled}, readyState: ${track.readyState}`);
+                    track.stop();
+                    console.log(`Track stopped: ${track.readyState}`);
+                });
+            }
         }
     }
 
@@ -82,12 +94,24 @@ class CameraManager {
     }
 
     cleanup() {
+        console.log('Starting camera cleanup...');
+
+        // Stop all media tracks
         if (this.stream) {
-            this.stream.getTracks().forEach(track => track.stop());
+            const tracks = this.stream.getTracks();
+            console.log(`Stopping ${tracks.length} media track(s)...`);
+            tracks.forEach(track => {
+                console.log(`Stopping track: ${track.kind}, enabled: ${track.enabled}, readyState: ${track.readyState}`);
+                track.stop();
+                console.log(`Track stopped: ${track.readyState}`);
+            });
             this.stream = null;
         }
 
+        // Clean up video element
         if (this.video) {
+            console.log('Cleaning up video element...');
+            this.video.pause();
             this.video.srcObject = null;
             if (this.video.parentNode) {
                 this.video.parentNode.removeChild(this.video);
@@ -95,11 +119,12 @@ class CameraManager {
             this.video = null;
         }
 
+        // Clean up canvas
         this.canvas = null;
         this.ctx = null;
         this.isInitialized = false;
 
-        console.log('Camera cleaned up');
+        console.log('Camera cleanup completed successfully');
     }
 }
 

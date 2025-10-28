@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>摄像头清理测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px 5px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background: #4CAF50;
+            color: white;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        button.danger {
+            background: #f44336;
+        }
+        button.danger:hover {
+            background: #da190b;
+        }
+        #status {
+            margin: 20px 0;
+            padding: 15px;
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            border-radius: 4px;
+        }
+        #log {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .log-entry {
+            margin: 5px 0;
+            padding: 5px;
+        }
+        .log-info { color: #2196F3; }
+        .log-success { color: #4CAF50; }
+        .log-error { color: #f44336; }
+        .log-warning { color: #FF9800; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎥 摄像头清理测试</h1>
+        <p>这个页面用于测试摄像头的初始化和清理功能。</p>
+        
+        <div id="status">
+            <strong>状态:</strong> <span id="statusText">未初始化</span>
+        </div>
+        
+        <div>
+            <button onclick="initCamera()">📷 初始化摄像头</button>
+            <button onclick="captureImage()">📸 捕获图像</button>
+            <button onclick="cleanupCamera()" class="danger">🛑 关闭摄像头</button>
+            <button onclick="checkStatus()">🔍 检查状态</button>
+            <button onclick="clearLog()">🗑️ 清空日志</button>
+        </div>
+        
+        <div id="log"></div>
+    </div>
+
+    <script type="module">
+        let cameraManager = null;
+        let stream = null;
+        let video = null;
+
+        window.initCamera = async function() {
+            log('开始初始化摄像头...', 'info');
+            try {
+                video = document.createElement('video');
+                video.autoplay = true;
+                video.style.display = 'none';
+                document.body.appendChild(video);
+
+                stream = await navigator.mediaDevices.getUserMedia({
+                    video: { width: { ideal: 640 }, height: { ideal: 480 } }
+                });
+
+                video.srcObject = stream;
+                await video.play();
+
+                updateStatus('摄像头已初始化 🟢');
+                log('摄像头初始化成功', 'success');
+                log(`视频轨道数: ${stream.getTracks().length}`, 'info');
+                
+                stream.getTracks().forEach(track => {
+                    log(`轨道: ${track.kind}, 状态: ${track.readyState}, 启用: ${track.enabled}`, 'info');
+                });
+            } catch (error) {
+                log('初始化失败: ' + error.message, 'error');
+                updateStatus('初始化失败 ❌');
+            }
+        };
+
+        window.captureImage = function() {
+            if (!video || !stream) {
+                log('请先初始化摄像头', 'warning');
+                return;
+            }
+
+            log('捕获图像...', 'info');
+            const canvas = document.createElement('canvas');
+            canvas.width = 200;
+            canvas.height = 200;
+            const ctx = canvas.getContext('2d');
+            
+            ctx.drawImage(video, 0, 0, 200, 200);
+            const dataUrl = canvas.toDataURL('image/png');
+            
+            log('图像捕获成功 (长度: ' + dataUrl.length + ')', 'success');
+        };
+
+        window.cleanupCamera = function() {
+            log('开始清理摄像头...', 'info');
+            
+            if (stream) {
+                const tracks = stream.getTracks();
+                log(`停止 ${tracks.length} 个媒体轨道...`, 'info');
+                
+                tracks.forEach(track => {
+                    log(`停止轨道: ${track.kind}, 状态: ${track.readyState}`, 'info');
+                    track.stop();
+                    log(`轨道已停止, 新状态: ${track.readyState}`, 'success');
+                });
+                
+                stream = null;
+            }
+
+            if (video) {
+                log('清理 video 元素...', 'info');
+                video.pause();
+                video.srcObject = null;
+                if (video.parentNode) {
+                    video.parentNode.removeChild(video);
+                }
+                video = null;
+            }
+
+            updateStatus('摄像头已关闭 ⚫');
+            log('摄像头清理完成', 'success');
+            
+            // 延迟检查
+            setTimeout(() => {
+                log('延迟检查 (1秒后)...', 'info');
+                checkStatus();
+            }, 1000);
+        };
+
+        window.checkStatus = function() {
+            log('=== 当前状态 ===', 'info');
+            log('Stream: ' + (stream ? '存在' : 'null'), stream ? 'warning' : 'success');
+            log('Video: ' + (video ? '存在' : 'null'), video ? 'warning' : 'success');
+            
+            if (stream) {
+                const tracks = stream.getTracks();
+                log(`轨道数: ${tracks.length}`, 'info');
+                tracks.forEach(track => {
+                    log(`- ${track.kind}: ${track.readyState}, 启用: ${track.enabled}`, 
+                        track.readyState === 'ended' ? 'success' : 'warning');
+                });
+            }
+            
+            // 检查浏览器媒体设备
+            navigator.mediaDevices.enumerateDevices().then(devices => {
+                const videoDevices = devices.filter(d => d.kind === 'videoinput');
+                log(`可用视频设备: ${videoDevices.length}`, 'info');
+            });
+        };
+
+        window.clearLog = function() {
+            document.getElementById('log').innerHTML = '';
+        };
+
+        function updateStatus(text) {
+            document.getElementById('statusText').textContent = text;
+        }
+
+        function log(message, type = 'info') {
+            const logDiv = document.getElementById('log');
+            const entry = document.createElement('div');
+            entry.className = `log-entry log-${type}`;
+            const timestamp = new Date().toLocaleTimeString();
+            entry.textContent = `[${timestamp}] ${message}`;
+            logDiv.appendChild(entry);
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(`[${type.toUpperCase()}] ${message}`);
+        }
+
+        // 初始日志
+        log('测试页面已加载', 'success');
+        log('点击"初始化摄像头"开始测试', 'info');
+    </script>
+</body>
+</html>

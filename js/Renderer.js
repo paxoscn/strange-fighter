@@ -195,7 +195,7 @@ class Renderer {
         this.ctx.restore();
     }
 
-    drawCharacterSelection(characters, selections) {
+    drawCharacterSelection(characters, selections, customHeads = {}) {
         if (!characters) return;
 
         // Draw title
@@ -294,6 +294,62 @@ class Renderer {
                 align: 'center',
                 baseline: 'top'
             });
+        });
+
+        // Draw captured heads preview
+        if (customHeads.player1) {
+            this.drawCapturedHeadPreview(customHeads.player1, 50, this.canvas.height - 150, 'P1');
+        }
+        if (customHeads.player2) {
+            this.drawCapturedHeadPreview(customHeads.player2, this.canvas.width - 150, this.canvas.height - 150, 'P2');
+        }
+    }
+
+    drawCapturedHeadPreview(imageDataUrl, x, y, label) {
+        const size = 100;
+        
+        // Draw background
+        this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+        this.ctx.fillRect(x, y, size, size);
+        
+        // Load and draw the captured image
+        const img = this.getImageFromCache(imageDataUrl);
+        if (img && img.complete && img.naturalWidth > 0) {
+            this.ctx.save();
+            
+            // Clip to circle
+            this.ctx.beginPath();
+            this.ctx.arc(x + size / 2, y + size / 2, size / 2 - 5, 0, Math.PI * 2);
+            this.ctx.closePath();
+            this.ctx.clip();
+            
+            // Draw image
+            this.ctx.drawImage(img, x + 5, y + 5, size - 10, size - 10);
+            
+            this.ctx.restore();
+        }
+        
+        // Draw border
+        this.ctx.strokeStyle = label === 'P1' ? '#00FF00' : '#0000FF';
+        this.ctx.lineWidth = 3;
+        this.ctx.beginPath();
+        this.ctx.arc(x + size / 2, y + size / 2, size / 2, 0, Math.PI * 2);
+        this.ctx.stroke();
+        
+        // Draw label
+        this.drawText(label, x + size / 2, y - 10, {
+            font: 'bold 20px Arial',
+            color: label === 'P1' ? '#00FF00' : '#0000FF',
+            align: 'center',
+            baseline: 'bottom'
+        });
+        
+        // Draw "已捕获" text
+        this.drawText('已捕获', x + size / 2, y + size + 20, {
+            font: '14px Arial',
+            color: '#FFFFFF',
+            align: 'center',
+            baseline: 'top'
         });
     }
 

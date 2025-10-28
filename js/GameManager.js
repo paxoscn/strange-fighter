@@ -235,25 +235,39 @@ class GameManager {
         try {
             // Initialize camera if not already done
             if (!this.cameraManager.isInitialized) {
+                console.log('Initializing camera...');
                 await this.cameraManager.init();
             }
 
-            // Wait for 1 second or the image is too dark
+            // Wait for 1 second to let camera adjust
             setTimeout(() => {
                 try {
+                    console.log('Capturing image...');
                     // Capture image
                     const imageDataUrl = this.cameraManager.captureImage();
                     if (imageDataUrl) {
                         this.selectionManager.setCustomHead(playerId, imageDataUrl);
                         console.log(`Captured head for player ${playerId}`);
+                        
+                        // Close camera immediately after capture
+                        console.log('Closing camera...');
+                        this.cameraManager.cleanup();
+                        console.log('Camera cleanup completed');
+                        
+                        // Force re-render to show captured head in selection screen
+                        this.render();
+                    } else {
+                        console.error('Failed to capture image - imageDataUrl is null');
                     }
                 } catch (error) {
                     console.error('Failed to capture camera image:', error);
-                    alert('无法访问摄像头: ' + error.message);
+                    alert('无法捕获图像: ' + error.message);
+                    // Try to cleanup camera even if capture failed
+                    this.cameraManager.cleanup();
                 }
             }, 1000);
         } catch (error) {
-            console.error('Failed to capture camera image:', error);
+            console.error('Failed to initialize camera:', error);
             alert('无法访问摄像头: ' + error.message);
         }
     }
@@ -535,6 +549,9 @@ class GameManager {
         this.renderer.drawCharacterSelection(this.charactersData, {
             player1Selection: this.selectionManager.player1Selection,
             player2Selection: this.selectionManager.player2Selection
+        }, {
+            player1: this.selectionManager.getCustomHead(1),
+            player2: this.selectionManager.getCustomHead(2)
         });
     }
 
