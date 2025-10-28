@@ -1,4 +1,122 @@
 {
+  "x-cat": {
+    "url": "./assets/characters/x-cat/avatar.png",
+    "point": 100,
+    "status": [
+      {
+        "keys": [],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/x-cat/normal-left.png",
+            "right_url": "./assets/characters/x-cat/normal-right.png",
+            "duration": 300
+          }
+        ],
+        "block": {
+          "x": 0,
+          "y": 0,
+          "w": 150,
+          "h": 180
+        },
+        "head": {
+          "x": 80,
+          "y": 50,
+          "w": 80,
+          "h": 80,
+          "direction": 90
+        },
+        "type": "normal",
+        "power": 0,
+        "duration": 0
+      },
+      {
+        "keys": [
+          "A"
+        ],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/x-cat/attacking-left.png",
+            "right_url": "./assets/characters/x-cat/attacking-right.png",
+            "duration": 300
+          }
+        ],
+        "block": {
+          "x": 0,
+          "y": 0,
+          "w": 150,
+          "h": 180
+        },
+        "head": {
+          "x": 80,
+          "y": 50,
+          "w": 80,
+          "h": 80,
+          "direction": 90
+        },
+        "type": "attacking",
+        "power": 15,
+        "attack": {
+          "x": 0,
+          "y": 0,
+          "w": 150,
+          "h": 180
+        },
+        "duration": 300
+      },
+      {
+        "keys": [],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/x-cat/attacked-left.png",
+            "right_url": "./assets/characters/x-cat/attacked-right.png",
+            "duration": 200
+          }
+        ],
+        "block": {
+          "x": 0,
+          "y": 0,
+          "w": 150,
+          "h": 180
+        },
+        "head": {
+          "x": 80,
+          "y": 50,
+          "w": 80,
+          "h": 80,
+          "direction": 90
+        },
+        "type": "attacked",
+        "power": 0,
+        "duration": 200
+      },
+      {
+        "keys": [],
+        "imgs": [
+          {
+            "left_url": "./assets/characters/x-cat/knocked-left.png",
+            "right_url": "./assets/characters/x-cat/knocked-right.png",
+            "duration": 9999
+          }
+        ],
+        "block": {
+          "x": 0,
+          "y": 0,
+          "w": 150,
+          "h": 180
+        },
+        "head": {
+          "x": 55,
+          "y": 90,
+          "w": 80,
+          "h": 80,
+          "direction": 0
+        },
+        "type": "knocked",
+        "power": 0,
+        "duration": 0
+      }
+    ]
+  },
   "tom": {
     "url": "./assets/characters/tom/avatar.png",
     "point": 100,
